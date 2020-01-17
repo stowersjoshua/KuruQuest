@@ -1,4 +1,14 @@
+#!/usr/bin/env ruby
+
 require_relative 'dictionary'
+require 'optparse'
+
+OptionParser.new do |parser|
+  parser.on '-c', '--category [CATEGORY]' do |category|
+    puts "Category: #{category}\n"
+    @category = category.to_sym
+  end
+end.parse!
 
 def prompt_for_category
   puts 'Select a word category:'
@@ -8,13 +18,13 @@ def prompt_for_category
   end
 
   category_index = gets.chomp.to_i - 1
-  Dictionary::CATEGORIES[category_index]
+  @category = Dictionary::CATEGORIES[category_index]
 end
 
 def start
-  category = prompt_for_category
+  prompt_for_category if @category.nil?
 
-  words = Dictionary.filter_by(category: category, alphabet: :hiragana)
+  words = Dictionary.filter_by(category: @category, alphabet: :hiragana)
 
   words.each.with_index(1) do |word, question_count|
     puts "Question #{question_count}:"
