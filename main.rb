@@ -11,8 +11,16 @@ OptionParser.new do |parser|
     @category = category.to_sym
   end
 
-  parser.on '-n', '--skip [SKIP N]', Integer do |skip_count|
+  parser.on '-s', '--skip [SKIP N]', Integer do |skip_count|
     @skip_count = skip_count
+  end
+
+  parser.on '-l', '--limit [LIMIT]', Integer do |limit|
+    @limit = limit
+  end
+
+  parser.on '-r', '--shuffle' do
+    @shuffle = true
   end
 end.parse!
 
@@ -31,7 +39,9 @@ def start
   prompt_for_category if @category.nil?
 
   words = Dictionary.filter_by(category: @category, alphabet: :hiragana)
-  words = words.drop(@skip_count)
+  words.shift(@skip_count)
+  words = words.first(@limit) if @limit
+  words.shuffle! if @shuffle
 
   words.each.with_index(@skip_count.next) do |word, question_count|
     puts "Question #{question_count}:"
@@ -49,6 +59,8 @@ def start
       return false
     end
   end
+
+  puts "\nCongratulations! List complete!"
 end
 
 start

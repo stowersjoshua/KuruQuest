@@ -14,8 +14,10 @@ bundle exec ruby main.rb
 ./main.rb -c 'adjectival noun'
 ```
 You can filter the word list by running the app with various flags:
-* To specify the category: `--category "noun"`
-* To skip a the first N words: `--skip 5`
+* To specify the category: `-c --category "noun"`
+* To skip a the first N words: `-s --skip 5`
+* To limit the lenght of the word list: `-l --limit 5`
+* To randomize the word order: `-r --shuffle`
 
 ## TODO
 - [ ] Add alphabet filter prompt & flag
