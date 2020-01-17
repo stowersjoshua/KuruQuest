@@ -3,10 +3,16 @@
 require_relative 'dictionary'
 require 'optparse'
 
+@skip_count = 0
+
 OptionParser.new do |parser|
   parser.on '-c', '--category [CATEGORY]' do |category|
-    puts "Category: #{category}\n"
+    puts "Category: #{category}\n\n"
     @category = category.to_sym
+  end
+
+  parser.on '-n', '--skip [SKIP N]', Integer do |skip_count|
+    @skip_count = skip_count
   end
 end.parse!
 
@@ -25,8 +31,9 @@ def start
   prompt_for_category if @category.nil?
 
   words = Dictionary.filter_by(category: @category, alphabet: :hiragana)
+  words = words.drop(@skip_count)
 
-  words.each.with_index(1) do |word, question_count|
+  words.each.with_index(@skip_count.next) do |word, question_count|
     puts "Question #{question_count}:"
     puts "#{word.expression}\n"
 

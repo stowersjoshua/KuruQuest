@@ -3,7 +3,7 @@ A super simple CLI app for practicing hiragana.
 
 Special thanks to `u/Nukemarine` for [sharing the dictionary.][dictionary_thread]
 
-## Setup
+## Usage
 The app requires Ruby 2.7.0 or later.
 
 ```bash
@@ -13,6 +13,9 @@ bundle exec ruby main.rb
 # or
 ./main.rb -c 'adjectival noun'
 ```
+You can filter the word list by running the app with various flags:
+* To specify the category: `--category "noun"`
+* To skip a the first N words: `--skip 5`
 
 ## TODO
 - [ ] Add alphabet filter prompt & flag
