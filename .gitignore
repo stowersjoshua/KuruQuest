@@ -1,0 +1,28 @@
+.bundle/*
+log/*
+.env
+.env.*
+tmp/*
+.sas_ftp_cred
+**.DS_Store
+dump.rdb
+storage/*
+spec/results.txt
+coverage/*
+
+# Rubymine
+.idea/
+.idea/*
+public/system/**
+
+# Personal
+scratch/*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+prodenv
+stageenv

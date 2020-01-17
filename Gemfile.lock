@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    moji (1.6)
+    mojinizer (0.2.2)
+      moji (~> 1.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mojinizer
+
+RUBY VERSION
+   ruby 2.7.0p0
+
+BUNDLED WITH
+   2.1.2
