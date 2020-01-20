@@ -61,7 +61,7 @@ def start
     elsif @life_count.positive?
       puts "Incorrect!"
       @life_count -= 1
-      puts "Tries remaining: #{@life_count}\n\n"
+      puts "Retries remaining: #{@life_count}\n\n"
       redo
     else
       puts "Incorrect!"
