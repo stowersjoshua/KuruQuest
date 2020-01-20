@@ -18,6 +18,7 @@ You can filter the word list by running the app with various flags:
 * To skip a the first N words: `-s --skip 5`
 * To limit the lenght of the word list: `-l --limit 5`
 * To randomize the word order: `-r --shuffle`
+* To read the translation out loud: `-v --verbose`
 
 ## TODO
 - [ ] Add alphabet filter prompt & flag

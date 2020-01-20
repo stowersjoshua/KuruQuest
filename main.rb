@@ -23,6 +23,10 @@ OptionParser.new do |parser|
   parser.on '-r', '--shuffle' do
     @shuffle = true
   end
+
+  parser.on '-v', '--verbose' do
+    @verbose = true
+  end
 end.parse!
 
 def prompt_for_category
@@ -53,6 +57,7 @@ def start
     if answer == word.romaji
       puts "Correct!"
       puts "Translation: #{word.translation}\n\n"
+      `say "#{word.translation}"` if @verbose
     elsif @life_count.positive?
       puts "Incorrect!"
       @life_count -= 1
