@@ -1,5 +1,4 @@
 require_relative 'word'
-
 require 'csv'
 
 class Dictionary

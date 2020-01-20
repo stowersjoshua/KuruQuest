@@ -3,6 +3,7 @@
 require_relative 'dictionary'
 require 'optparse'
 
+@life_count = 5
 @skip_count = 0
 
 OptionParser.new do |parser|
@@ -52,6 +53,11 @@ def start
     if answer == word.romaji
       puts "Correct!"
       puts "Translation: #{word.translation}\n\n"
+    elsif @life_count.positive?
+      puts "Incorrect!"
+      @life_count -= 1
+      puts "Tries remaining: #{@life_count}\n\n"
+      redo
     else
       puts "Incorrect!"
       puts "Answer: #{word.romaji}"
