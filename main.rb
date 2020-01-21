@@ -2,6 +2,7 @@
 
 require_relative 'dictionary'
 require 'optparse'
+require 'colorize'
 
 @life_count = 5
 @skip_count = 0
@@ -16,7 +17,6 @@ OptionParser.new do |parser|
   end
 
   parser.on '-c', '--category [CATEGORY]' do |category|
-    puts "Category: #{category}\n\n"
     @category = category.to_sym
   end
 
@@ -38,10 +38,10 @@ OptionParser.new do |parser|
 end.parse!
 
 def prompt_for_category
-  puts 'Select a word category:'
+  puts 'Select a word category:'.colorize(:blue)
 
   Dictionary::CATEGORIES.each.with_index(1) do |word, index|
-    puts "#{index} - #{word}"
+    puts "#{index} - #{word}".colorize(:light_blue)
   end
 
   category_index = gets.chomp.to_i - 1
@@ -50,7 +50,7 @@ def prompt_for_category
 end
 
 def prompt_for_alphabet
-  puts '[H]iragana or [K]atakana?'
+  puts '[H]iragana or [K]atakana?'.colorize(:blue)
 
   response = gets.chomp.downcase
   puts
@@ -67,30 +67,31 @@ def start
   words.shuffle! if @shuffle
 
   words.each.with_index(@skip_count.next) do |word, question_count|
-    puts "Question #{question_count}:"
-    puts word.expression if @include_kanji && word.contains_kanji?
-    puts "#{word.kana}\n"
+    puts "Question #{question_count}:".colorize(:magenta)
+    puts word.expression.colorize(:light_magenta) if @include_kanji && word.contains_kanji?
+    puts "#{word.kana}\n".colorize(:light_magenta)
 
     answer = gets.chomp
+    puts
 
     if answer == word.romaji
-      puts "Correct!"
-      puts "Translation: #{word.translation}\n\n"
+      puts "Correct!".colorize(:green)
+      puts "Translation: #{word.translation}\n".colorize(:blue)
       `say "#{word.translation}"` if @verbose
     elsif @life_count.positive?
-      puts "Incorrect!"
+      puts "Incorrect!".colorize(:red)
       @life_count -= 1
-      puts "Retries remaining: #{@life_count}\n\n"
+      puts "Retries remaining: #{@life_count}".colorize(:red)
       redo
     else
-      puts "Incorrect!"
-      puts "Answer: #{word.romaji}"
-      puts "\nFinal score: #{question_count - 1}"
+      puts "Incorrect!".colorize(:red)
+      puts "Answer: #{word.romaji}".colorize(:blue)
+      puts "\nFinal score: #{question_count - 1}".colorize(:green)
       return false
     end
   end
 
-  puts "\nCongratulations! List complete!"
+  puts 'Congratulations! List complete!'.colorize(:green)
 end
 
 start
