@@ -1,6 +1,8 @@
 require 'mojinizer'
 require 'forwardable'
 
+# Note: Kanji gets sorted into the :hiragana library
+
 class Word
   extend Forwardable
 
@@ -16,13 +18,7 @@ class Word
     @romaji = kana.romaji
     @category = info['vocab_pos'].downcase.to_sym if info['vocab_pos']
     @jlpt_rating = info['jlpt'].to_s.scan(/\d+/).first.to_i
-
-    @alphabet = case expression
-                when proc(&:katakana?) then :katakana
-                when proc(&:hiragana?) then :hiragana
-                when proc(&:kanji?) then :kanji
-                else nil
-                end
+    @alphabet = expression.contains_katakana? ? :katakana : :hiragana
   end
 
   def info

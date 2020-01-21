@@ -50,7 +50,7 @@ def start
 
   words.each.with_index(@skip_count.next) do |word, question_count|
     puts "Question #{question_count}:"
-    puts "#{word.expression}\n"
+    puts "#{word.kana}\n"
 
     answer = gets.chomp
 
