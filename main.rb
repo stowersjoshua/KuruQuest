@@ -81,7 +81,7 @@ def start
     elsif @life_count.positive?
       puts "Incorrect!".colorize(:red)
       @life_count -= 1
-      puts "Retries remaining: #{@life_count}".colorize(:red)
+      puts "Retries remaining: #{@life_count}\n".colorize(:red)
       redo
     else
       puts "Incorrect!".colorize(:red)
