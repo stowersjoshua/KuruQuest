@@ -7,6 +7,10 @@ require 'optparse'
 @skip_count = 0
 
 OptionParser.new do |parser|
+  parser.on '-a', '--alphabet [ALPHABET]' do |alphabet|
+    @alphabet = alphabet.to_sym
+  end
+
   parser.on '-k', '--show-kanji' do
     @include_kanji = true
   end
@@ -41,13 +45,23 @@ def prompt_for_category
   end
 
   category_index = gets.chomp.to_i - 1
-  @category = Dictionary::CATEGORIES[category_index]
+  puts
+  Dictionary::CATEGORIES[category_index]
+end
+
+def prompt_for_alphabet
+  puts '[H]iragana or [K]atakana?'
+
+  response = gets.chomp.downcase
+  puts
+  response == 'k' ? :katakana : :hiragana
 end
 
 def start
-  prompt_for_category if @category.nil?
+  @category ||= prompt_for_category
+  @alphabet ||= prompt_for_alphabet
 
-  words = Dictionary.filter_by(category: @category, alphabet: :hiragana)
+  words = Dictionary.filter_by(category: @category, alphabet: @alphabet)
   words.shift(@skip_count)
   words = words.first(@limit) if @limit
   words.shuffle! if @shuffle
