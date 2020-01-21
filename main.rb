@@ -92,6 +92,9 @@ def start
   end
 
   puts 'Congratulations! List complete!'.colorize(:green)
+
+rescue SystemExit, Interrupt
+  puts "\n\nさよなら".colorize(:yellow)
 end
 
 start
