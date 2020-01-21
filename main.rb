@@ -7,6 +7,10 @@ require 'optparse'
 @skip_count = 0
 
 OptionParser.new do |parser|
+  parser.on '-k', '--show-kanji' do
+    @include_kanji = true
+  end
+
   parser.on '-c', '--category [CATEGORY]' do |category|
     puts "Category: #{category}\n\n"
     @category = category.to_sym
@@ -50,6 +54,7 @@ def start
 
   words.each.with_index(@skip_count.next) do |word, question_count|
     puts "Question #{question_count}:"
+    puts word.expression if @include_kanji && word.contains_kanji?
     puts "#{word.kana}\n"
 
     answer = gets.chomp
