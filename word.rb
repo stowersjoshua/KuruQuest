@@ -6,7 +6,7 @@ require 'forwardable'
 class Word
   extend Forwardable
 
-  ATTRIBUTES = %i(expression translation kana romaji category jlpt_rating alphabet)
+  ATTRIBUTES = %i(expression translation kana romaji category jlpt_rating alphabet expression_audio_path)
   attr_accessor *ATTRIBUTES
 
   def_delegators :expression, :hiragana?, :katakana?, :kanji?, :contains_kanji?, :contains_hiragana?, :contains_katakana?
@@ -19,6 +19,7 @@ class Word
     @category = info['vocab_pos'].downcase.to_sym if info['vocab_pos']
     @jlpt_rating = info['jlpt'].to_s.scan(/\d+/).first.to_i
     @alphabet = contains_katakana? ? :katakana : :hiragana
+    @expression_audio_path = info['vocab_sound_local']
   end
 
   def info

@@ -26,3 +26,5 @@ yarn-debug.log*
 .yarn-integrity
 prodenv
 stageenv
+
+words/*.wav

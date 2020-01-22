@@ -1,15 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    audio-playback (0.0.8)
+      ffi-libc (~> 0.1, >= 0.1.0)
+      ffi-portaudio (~> 0.1, >= 0.1.2)
+      ruby-audio (~> 1.6, >= 1.6.1)
     colorize (0.8.1)
+    ffi (1.12.1)
+    ffi-libc (0.1.0)
+      ffi (~> 1.0)
+    ffi-portaudio (0.1.2)
+      ffi
     moji (1.6)
     mojinizer (0.2.2)
       moji (~> 1.6)
+    ruby-audio (1.6.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  audio-playback
   colorize
   mojinizer
 

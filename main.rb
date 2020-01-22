@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative 'dictionary'
+require 'audio-playback'
 require 'optparse'
 require 'colorize'
 
@@ -57,6 +58,12 @@ def prompt_for_alphabet
   response == 'k' ? :katakana : :hiragana
 end
 
+def play_audio_file(filename)
+  return unless File.exist?(filename)
+
+  AudioPlayback.play(filename)
+end
+
 def start
   @category ||= prompt_for_category
   @alphabet ||= prompt_for_alphabet
@@ -70,6 +77,8 @@ def start
     puts "Question #{question_count}:".colorize(:magenta)
     puts word.expression.colorize(:light_magenta) if @include_kanji && word.contains_kanji?
     puts "#{word.kana}\n".colorize(:light_magenta)
+
+    play_audio_file("words/#{word.expression_audio_path}") if @verbose
 
     answer = gets.chomp
     puts
