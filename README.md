@@ -3,19 +3,20 @@ A super simple CLI app for practicing Japanese kana.
 
 Special thanks to `u/Nukemarine` for [sharing the dictionary.][dictionary_thread]
 
-## Usage
+## Setup
 The app requires Ruby 2.7.0 or later.
 
 ```bash
 brew install libsndfile portaudio
 bundle install
-
-bundle exec ruby main.rb
-# or
-./main.rb -c 'adjectival noun'
 ```
+**Note:**
+To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
 
-You can filter the word list by running the app with various flags:
+## Gameplay
+Start the game by `/main.rb`.
+
+You can toggle features and customize the word list by appending various flags:
 * To specify an alphabet: `-a --alphabet hiragana`
 * To include kanji characters: `-k --show-kanji`
 * To specify the category: `-c --category "noun"`
@@ -23,9 +24,6 @@ You can filter the word list by running the app with various flags:
 * To limit the length of the word list: `-l --limit 5`
 * To randomize the word order: `-r --shuffle`
 * To hear the pronunciations and translations: `-v --verbose`
-
-**Note:**
-To hear the Japanese pronunciations, you will need to import the audio files from [here.][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
 
 ## TODO
 - [ ] Allow users to play without word filters
