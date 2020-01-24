@@ -14,6 +14,7 @@ bundle install
 To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
 
 ## Gameplay
+### Running the Game
 Start the game by `/main.rb`.
 
 You can toggle features and customize the word list by appending various flags:
@@ -24,6 +25,40 @@ You can toggle features and customize the word list by appending various flags:
 * To limit the length of the word list: `-l --limit 5`
 * To randomize the word order: `-r --shuffle`
 * To hear the pronunciations and translations: `-v --verbose`
+
+### Hints
+You can type `help` instead of an answer to see the first letter of the solution.
+```
+Question 1:
+ゲーム
+
+> help
+
+g____
+```
+
+You can also choose the number of letters you want revealed.
+
+```
+Question 1:
+ゲーム
+
+> help 3
+
+gee__ 
+``` 
+
+If you already know the first few letters of the solution, include it just before the hint count.
+Be aware that **the help feature will be disabled after the first 5 character reveals**. 
+
+```
+Question 1:
+ゲーム
+
+> help ge 3
+
+__emu 
+``` 
 
 ## TODO
 - [ ] Allow users to play without word filters

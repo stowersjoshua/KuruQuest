@@ -5,6 +5,7 @@ require 'audio-playback'
 require 'optparse'
 require 'colorize'
 
+@help_count = 5
 @life_count = 5
 @skip_count = 0
 
@@ -64,6 +65,32 @@ def play_audio_file(filename)
   AudioPlayback.play(filename)
 end
 
+def give_help(gots, word)
+  reveal_start, reveal_stop = case gots.split
+                              in ['help', known_letters, unknown_letter_count]
+                                reveal_start = known_letters.length
+                                reveal_stop = reveal_start + unknown_letter_count.to_i.abs
+                                [reveal_start, reveal_stop]
+                              in ['help', unknown_letter_count]
+                                reveal_start = 0
+                                reveal_stop = reveal_start + unknown_letter_count.to_i.abs
+                                [reveal_start, reveal_stop]
+                              in ['help']
+                                reveal_start = 0
+                                reveal_stop = 1
+                                [reveal_start, reveal_stop]
+                              end
+
+  hidden_characters = '_' * word.romaji.length
+  revealed_characters = word.romaji[reveal_start...reveal_stop]
+  hidden_characters[reveal_start...reveal_stop] = revealed_characters
+
+  @help_count -= revealed_characters.length
+  @help_count = 0 if @help_count.negative?
+
+  puts hidden_characters.colorize(:blue)
+end
+
 def start
   @category ||= prompt_for_category
   @alphabet ||= prompt_for_alphabet
@@ -80,10 +107,14 @@ def start
 
     play_audio_file("words/#{word.expression_audio_path}") if @verbose
 
-    answer = gets.chomp
+    answer = gets.chomp.downcase
     puts
 
-    if answer == word.romaji
+    if answer.start_with? 'help'
+      give_help(answer, word) if @help_count.positive?
+      puts "Helps remaining: #{@help_count}\n".colorize(:red)
+      redo
+    elsif answer == word.romaji
       puts "Correct!".colorize(:green)
       puts "Translation: #{word.translation}\n".colorize(:blue)
       `say "#{word.translation}"` if @verbose
