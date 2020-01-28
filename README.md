@@ -24,6 +24,7 @@ You can toggle features and customize the word list by appending various flags:
 * To skip the first N words: `-s --skip 5`
 * To limit the length of the word list: `-l --limit 5`
 * To randomize the word order: `-r --shuffle`
+* To disable answer checking: `-f --flash-card-mode`
 * To hear the pronunciations and translations: `-v --verbose`
 
 ### Hints

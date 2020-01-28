@@ -34,6 +34,10 @@ OptionParser.new do |parser|
     @shuffle = true
   end
 
+  parser.on '-f', '--flash-card-mode' do
+    @flash_card_mode = true
+  end
+
   parser.on '-v', '--verbose' do
     @verbose = true
   end
@@ -106,9 +110,16 @@ def start
     puts "#{word.kana}\n".colorize(:light_magenta)
 
     play_audio_file("words/#{word.expression_audio_path}") if @verbose
-
     answer = gets.chomp.downcase
-    puts
+
+    if @flash_card_mode == true
+      puts word.romaji.colorize(:light_blue)
+      puts "Translation: #{word.translation}\n\n".colorize(:blue)
+      `say "#{word.translation}"` if @verbose
+      next
+    else
+      puts
+    end
 
     if answer.start_with? 'help'
       give_help(answer, word) if @help_count.positive?
