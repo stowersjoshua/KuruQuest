@@ -27,6 +27,8 @@ You can toggle features and customize the word list by appending various flags:
 * To disable answer checking: `-f --flash-card-mode`
 * To hear the pronunciations and translations: `-v --verbose`
 
+You can pass `any` to the `--alphabet` and `--cateory` flags to combine all options.
+
 ### Hints
 You can type `help` instead of an answer to see the first letter of the solution.
 ```

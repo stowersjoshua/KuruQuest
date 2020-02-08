@@ -95,14 +95,28 @@ def give_help(gots, word)
   puts hidden_characters.colorize(:blue)
 end
 
-def start
+def compile_word_list
+  # Define category, set to nil if :any
   @category ||= prompt_for_category
-  @alphabet ||= prompt_for_alphabet
+  @category = nil if @category == :any
 
-  words = Dictionary.filter_by(category: @category, alphabet: @alphabet)
-  words.shift(@skip_count)
-  words = words.first(@limit) if @limit
-  words.shuffle! if @shuffle
+  # Define alphabet, set to nil if :any
+  @alphabet ||= prompt_for_alphabet
+  @alphabet = nil if @alphabet == :any
+
+  # Find words with matching attributes, ignore nil filters
+  word_filters = { category: @category, alphabet: @alphabet }.compact
+  words = Dictionary.filter_by(**word_filters)
+
+  words.shift(@skip_count)                # Skip words
+  words = words.first(@limit) if @limit   # Limit word list size
+  words.shuffle! if @shuffle              # Shuffle word list
+
+  words
+end
+
+def start
+  words = compile_word_list
 
   words.each.with_index(@skip_count.next) do |word, question_count|
     puts "Question #{question_count}:".colorize(:magenta)
