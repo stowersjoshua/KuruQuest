@@ -31,7 +31,9 @@ class Audio
     def configure_say_processor!
       return if say_processor
 
-      if system 'which say &>-'
+      if system 'which padsp &>- && which flite &>-'
+        self.say_processor = Flite
+      elsif system 'which say &>-'
         self.say_processor = Say
       elsif system 'which festival &>-'
         self.say_processor = Festival
@@ -65,6 +67,12 @@ class Audio
     def self.say(verbiage)
       verbiage.delete!('()')
       system("echo #{verbiage} | festival --tts")
+    end
+  end
+
+  class Flite < Processor
+    def self.say(verbiage)
+      system("padsp flite -voice voice.flitevox -t '#{verbiage}'")
     end
   end
 end

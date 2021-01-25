@@ -16,12 +16,15 @@ bundle install
 ```
 
 ### Audio
-
+#### Japanese
 To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
 
-Additionally, you will need either [play](sox_docs) from SoX or [ffplay](ffplay_docs) installed and in your PATH. 
+Additionally, you will need either [play][sox_docs] from SoX or [ffplay][ffplay_docs] installed and in your PATH. 
 
-Since Apple doesn't share their "say" program, Linux users will need to download the festival package. 
+#### English
+Since Apple doesn't share their `say` program, Linux users will need to either download `festival`, or install [flite 2.2][flite_repo] from source. 
+
+When using `flite`, it is assumed that you are using pule audio and have a [voice.flitevox][flite_voice_download] file in the project directory. This is still experimental, but much faster than `festival`.  
 
 ## Gameplay
 ### Running the Game
@@ -83,3 +86,5 @@ __emu
 [mp3_conversion_example]: https://stackoverflow.com/a/52338741
 [sox_docs]: http://sox.sourceforge.net/sox.html
 [ffplay_docs]: https://ffmpeg.org/ffplay.html
+[flite_repo]: https://github.com/festvox/flite
+[flite_voice_download]: http://festvox.org/flite/packed/flite-2.1/voices/cmu_us_rms.flitevox
