@@ -1,29 +1,26 @@
 class Audio
   class << self
-    attr_accessor :processor
+    attr_accessor :play_processor
 
     def play(file_path)
-      configure! unless configured?
+      configure_play_processor!
 
-      processor.play(file_path)
-    end
-
-    def configured?
-      !processor.nil?
+      play_processor.play(file_path)
     end
 
     private
 
-    def configure!
+    def configure_play_processor!
+      return if play_processor
+
       if system 'which play &>-'
-        self.processor = Play
+        self.play_processor = Play
       elsif system 'which ffplay &>-'
-        self.processor = FFPlay
+        self.play_processor = FFPlay
       else
         raise 'Unable to locate a supported audio processor'
       end
     end
-  end
 
   class Processor; end
 
