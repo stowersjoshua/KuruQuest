@@ -129,7 +129,7 @@ def start
     if @flash_card_mode == true
       puts word.romaji.colorize(:light_blue)
       puts "Translation: #{word.translation}\n\n".colorize(:blue)
-      `say "#{word.translation}"` if @verbose
+      Audio.say("#{word.translation}") if @verbose
       next
     else
       puts
@@ -142,7 +142,7 @@ def start
     elsif answer == word.romaji
       puts "Correct!".colorize(:green)
       puts "Translation: #{word.translation}\n".colorize(:blue)
-      `say "#{word.translation}"` if @verbose
+      Audio.say("#{word.translation}") if @verbose
     elsif @life_count.positive?
       puts "Incorrect!".colorize(:red)
       @life_count -= 1

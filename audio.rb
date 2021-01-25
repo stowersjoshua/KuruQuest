@@ -1,11 +1,17 @@
 class Audio
   class << self
-    attr_accessor :play_processor
+    attr_accessor :play_processor, :say_processor
 
     def play(file_path)
       configure_play_processor!
 
       play_processor.play(file_path)
+    end
+
+    def say(verbiage)
+      configure_say_processor!
+
+      say_processor.say(verbiage)
     end
 
     private
@@ -22,6 +28,19 @@ class Audio
       end
     end
 
+    def configure_say_processor!
+      return if say_processor
+
+      if system 'which say &>-'
+        self.say_processor = Say
+      elsif system 'which festival &>-'
+        self.say_processor = Festival
+      else
+        raise 'Unable to locate a supported text to speech processor'
+      end
+    end
+  end
+
   class Processor; end
 
   class Play < Processor
@@ -33,6 +52,19 @@ class Audio
   class FFPlay < Processor
     def self.play(file_path)
       system("ffplay #{file_path} -nodisp -loglevel 0 -autoexit")
+    end
+  end
+
+  class Say < Processor
+    def self.say(verbiage)
+      system("say #{verbiage}")
+    end
+  end
+
+  class Festival < Processor
+    def self.say(verbiage)
+      verbiage.delete!('()')
+      system("echo #{verbiage} | festival --tts")
     end
   end
 end

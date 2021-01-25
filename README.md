@@ -7,7 +7,10 @@ Special thanks to `u/Nukemarine` for [sharing the dictionary.][dictionary_thread
 The app requires Ruby 2.7.0 or later.
 
 ```bash
+# Linux only
 sudo dnf install sox # or ffmpeg 
+sudo dnf install festival 
+
 rvm use 2.7.0
 bundle install
 ```
@@ -17,6 +20,8 @@ bundle install
 To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
 
 Additionally, you will need either [play](sox_docs) from SoX or [ffplay](ffplay_docs) installed and in your PATH. 
+
+Since Apple doesn't share their "say" program, Linux users will need to download the festival package. 
 
 ## Gameplay
 ### Running the Game
