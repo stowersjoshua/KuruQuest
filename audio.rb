@@ -19,9 +19,9 @@ class Audio
     def configure_play_processor!
       return if play_processor
 
-      if system 'which play &>-'
+      if system 'which play &>/dev/null'
         self.play_processor = Play
-      elsif system 'which ffplay &>-'
+      elsif system 'which ffplay &>/dev/null'
         self.play_processor = FFPlay
       else
         raise 'Unable to locate a supported audio processor'
@@ -31,11 +31,11 @@ class Audio
     def configure_say_processor!
       return if say_processor
 
-      if system 'which padsp &>- && which flite &>-'
+      if system 'which padsp &>/dev/null && which flite &>/dev/null'
         self.say_processor = Flite
-      elsif system 'which say &>-'
+      elsif system 'which say &>/dev/null'
         self.say_processor = Say
-      elsif system 'which festival &>-'
+      elsif system 'which festival &>/dev/null'
         self.say_processor = Festival
       else
         raise 'Unable to locate a supported text to speech processor'
