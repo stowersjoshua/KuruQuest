@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative 'dictionary'
-require 'audio-playback'
+require_relative 'audio'
 require 'optparse'
 require 'colorize'
 
@@ -66,7 +66,7 @@ end
 def play_audio_file(filename)
   return unless File.exist?(filename)
 
-  AudioPlayback.play(filename)
+  Audio.play(filename)
 end
 
 def give_help(gots, word)

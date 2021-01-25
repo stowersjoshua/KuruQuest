@@ -7,15 +7,20 @@ Special thanks to `u/Nukemarine` for [sharing the dictionary.][dictionary_thread
 The app requires Ruby 2.7.0 or later.
 
 ```bash
-brew install libsndfile portaudio
+sudo dnf install sox # or ffmpeg 
+rvm use 2.7.0
 bundle install
 ```
-**Note:**
+
+### Audio
+
 To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
+
+Additionally, you will need either [play](sox_docs) from SoX or [ffplay](ffplay_docs) installed and in your PATH. 
 
 ## Gameplay
 ### Running the Game
-Start the game by `/main.rb`.
+Start the game by running `/main.rb`.
 
 You can toggle features and customize the word list by appending various flags:
 * To specify an alphabet: `-a --alphabet hiragana`
@@ -65,7 +70,11 @@ __emu
 
 ## TODO
 - [ ] Allow users to play without word filters
+- [ ] Add flag for specifying a custom dictionary file
+- [ ] Support usage of dot files for defining default settings
 
 [dictionary_thread]: https://www.reddit.com/r/LearnJapanese/comments/s2iop/heres_a_spreadsheet_of_the_6000_most_common
 [word_audio_download]: http://www.mediafire.com/file/oyddnozmbd2/kore-sound-vocab-munged.zip/file
 [mp3_conversion_example]: https://stackoverflow.com/a/52338741
+[sox_docs]: http://sox.sourceforge.net/sox.html
+[ffplay_docs]: https://ffmpeg.org/ffplay.html
