@@ -28,3 +28,5 @@ prodenv
 stageenv
 
 words/*.wav
+words/*.mp3
+

@@ -17,7 +17,7 @@ bundle install
 
 ### Audio
 #### Japanese
-To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory and [convert them to .wav files.][mp3_conversion_example]
+To hear the Japanese pronunciations, you will need to import the audio files from [here][word_audio_download] into the `./words/` directory.
 
 Additionally, you will need either [play][sox_docs] from SoX or [ffplay][ffplay_docs] installed and in your PATH. 
 
@@ -83,7 +83,6 @@ __emu
 
 [dictionary_thread]: https://www.reddit.com/r/LearnJapanese/comments/s2iop/heres_a_spreadsheet_of_the_6000_most_common
 [word_audio_download]: http://www.mediafire.com/file/oyddnozmbd2/kore-sound-vocab-munged.zip/file
-[mp3_conversion_example]: https://stackoverflow.com/a/52338741
 [sox_docs]: http://sox.sourceforge.net/sox.html
 [ffplay_docs]: https://ffmpeg.org/ffplay.html
 [flite_repo]: https://github.com/festvox/flite
