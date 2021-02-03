@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require_relative '../dictionary'
+require_relative '../display'
+
+print 'Search: '
+
+query = Regexp.new(gets.chomp)
+words = Dictionary.search_by(:translation, query)
+
+if words.none?
+  puts 'No words found'
+  exit
+end
+
+grid_data = words.map { |word| word.info.slice(:expression, :kana, :translation) }
+Display::Grid.new(grid_data).draw

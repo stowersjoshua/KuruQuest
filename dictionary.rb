@@ -11,4 +11,10 @@ class Dictionary
   def self.search(**attribute_filters)
     WORDS.select { |word| attribute_filters <= word.info }
   end
+
+  # Example: search_by(:translation, 'lonely')
+  #          search_by(:translation, /.one\w{2}/)
+  def self.search_by(attribute, query)
+    WORDS.select { |word| word.info[attribute].to_s.downcase.match? query }
+  end
 end

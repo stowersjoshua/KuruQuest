@@ -76,6 +76,27 @@ Question 1:
 __emu 
 ``` 
 
+## Dictionaries
+### Finding a word
+
+Use `./bin/lookup` to search for words by their English translations.
+
+You will be prompted for a query, which will be interpreted as a REGEX pattern.
+
+Simply providing a generic string or substring for the word you want should still work as expected.
+
+```bash
+./bin/lookup 
+Search: cure
+  直す　 | なおす　　 | repair, cure, alter  
+  治る　 | なおる　　 | be cured, get well   
+  治す　 | なおす　　 | cure, heal           
+  確実　 | かくじつ　 | certain, secure      
+  確保　 | かくほ　　 | securement           
+  厳重　 | げんじゅう | strict, secure       
+  治まる | おさまる　 | settle down, be cured
+```
+
 ## TODO
 - [ ] Allow users to play without word filters
 - [ ] Add flag for specifying a custom dictionary file
