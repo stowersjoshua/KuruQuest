@@ -106,7 +106,7 @@ def compile_word_list
 
   # Find words with matching attributes, ignore nil filters
   word_filters = { category: @category, alphabet: @alphabet }.compact
-  words = Dictionary.filter_by(**word_filters)
+  words = Dictionary.search(**word_filters)
 
   words.shift(@skip_count)                # Skip words
   words = words.first(@limit) if @limit   # Limit word list size

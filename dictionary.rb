@@ -7,8 +7,8 @@ class Dictionary
   WORDS = word_info.map { |info| Word.new(**info) }.freeze
   CATEGORIES = WORDS.map(&:category).uniq.sort.freeze
 
-  # Example: filter_by(alphabet: :katakana)
-  def self.filter_by(**attribute_filters)
+  # Example: search(alphabet: :katakana)
+  def self.search(**attribute_filters)
     WORDS.select { |word| attribute_filters <= word.info }
   end
 end
