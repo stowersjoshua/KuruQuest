@@ -10,6 +10,10 @@ require 'colorize'
 @skip_count = 0
 
 OptionParser.new do |parser|
+  parser.on '-d', '--dictionary [SOURCE DICTIONARY]' do |path|
+    @dictionary_path = path
+  end
+
   parser.on '-a', '--alphabet [ALPHABET]' do |alphabet|
     @alphabet = alphabet.to_sym
   end
@@ -43,7 +47,8 @@ OptionParser.new do |parser|
   end
 end.parse!
 
-@dictionary = Dictionary.new
+@dictionary_path ||= Dictionary::DEFAULT_SOURCE_PATH
+@dictionary = Dictionary.new(@dictionary_path)
 
 def prompt_for_category
   puts 'Select a word category:'.colorize(:blue)

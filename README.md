@@ -31,6 +31,7 @@ When using `flite`, it is assumed that you are using pule audio and have a [voic
 Start the game by running `/main.rb`.
 
 You can toggle features and customize the word list by appending various flags:
+* To specify a dictionary file: `-s --source dictionary.csv`
 * To specify an alphabet: `-a --alphabet hiragana`
 * To include kanji characters: `-k --show-kanji`
 * To specify the category: `-c --category "noun"`
@@ -99,7 +100,6 @@ Search: cure
 
 ## TODO
 - [ ] Allow users to play without word filters
-- [ ] Add flag for specifying a custom dictionary file
 - [ ] Support usage of dot files for defining default settings
 
 [dictionary_thread]: https://www.reddit.com/r/LearnJapanese/comments/s2iop/heres_a_spreadsheet_of_the_6000_most_common
