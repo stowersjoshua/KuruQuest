@@ -12,17 +12,24 @@ class Word
   def_delegators :expression, :hiragana?, :katakana?, :kanji?, :contains_kanji?, :contains_hiragana?, :contains_katakana?
 
   def initialize(**info)
-    @expression = info['vocab_expression'].to_s
-    @translation = info['vocab_meaning'].to_s
-    @kana = info['vocab_kana'].to_s
-    @romaji = kana.romaji
-    @category = info['vocab_pos'].downcase.to_sym if info['vocab_pos']
-    @jlpt_rating = info['jlpt'].to_s.scan(/\d+/).first.to_i
+    @kana = extract_info(info, keys: ['vocab_kana', 'kana'])
+    @translation = extract_info(info, keys: ['vocab_meaning', 'translation'])
+    @expression = extract_info(info, keys: ['vocab_expression', 'expression'])
+    @jlpt_rating = extract_info(info, keys: ['jlpt', 'jlpt_rating']).scan(/\d+/).first.to_i
+    @category = extract_info(info, keys: ['vocab_pos', 'category'], default: 'unknown').downcase.to_sym
+    @expression_audio_path = extract_info(info, keys: ['vocab_sound_local', 'expression_audio_path'])
     @alphabet = contains_katakana? ? :katakana : :hiragana
-    @expression_audio_path = info['vocab_sound_local']
+    @romaji = kana.romaji
   end
 
   def info
     ATTRIBUTES.to_h { |attribute| [attribute, public_send(attribute)] }
+  end
+
+  private
+
+  def extract_info(info, keys:, default: nil)
+    value = info.values_at(*keys).compact.last
+    value || default || value.to_s
   end
 end
