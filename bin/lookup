@@ -6,7 +6,8 @@ require_relative '../display'
 print 'Search: '
 
 query = Regexp.new(gets.chomp)
-words = Dictionary.search_by(:translation, query)
+dictionary = Dictionary.new
+words = dictionary.search_by(:translation, query)
 
 if words.none?
   puts 'No words found'

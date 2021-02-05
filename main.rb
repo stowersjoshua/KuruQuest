@@ -43,16 +43,18 @@ OptionParser.new do |parser|
   end
 end.parse!
 
+@dictionary = Dictionary.new
+
 def prompt_for_category
   puts 'Select a word category:'.colorize(:blue)
 
-  Dictionary::CATEGORIES.each.with_index(1) do |word, index|
+  @dictionary.categories.each.with_index(1) do |word, index|
     puts "#{index} - #{word}".colorize(:light_blue)
   end
 
   category_index = gets.chomp.to_i - 1
   puts
-  Dictionary::CATEGORIES[category_index]
+  @dictionary.categories[category_index]
 end
 
 def prompt_for_alphabet
@@ -106,7 +108,7 @@ def compile_word_list
 
   # Find words with matching attributes, ignore nil filters
   word_filters = { category: @category, alphabet: @alphabet }.compact
-  words = Dictionary.search(**word_filters)
+  words = @dictionary.search(**word_filters)
 
   words.shift(@skip_count)                # Skip words
   words = words.first(@limit) if @limit   # Limit word list size
