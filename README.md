@@ -98,6 +98,22 @@ Search: cure
   治まる | おさまる　 | settle down, be cured
 ```
 
+### Custom word lists
+
+You can create a custom dictionary out of individual words from another one using the `./bin/build_dictionary` tool.
+* To specify a dictionary file to import from: `-s --source dictionary.csv` (default)
+* To specify the target dictionary: `-o --destination my-dictionary.csv` (or as first argument)
+
+```bash
+./bin/build_dictionary wotd.csv
+Search: tree
+   1 | 道　　　　 | みち　　　 | road, street                
+   2 | 桜　　　　 | さくら　　 | cherry tree, cherry blossom 
+   3 | 木　　　　 | き　　　　 | tree, wood
+
+Select: 3
+```
+
 ## TODO
 - [ ] Allow users to play without word filters
 - [ ] Support usage of dot files for defining default settings

@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+require_relative '../dictionary'
+require_relative '../display'
+require 'optparse'
+require 'csv'
+
+OptionParser.new do |parser|
+  parser.on('-o', '--destination [DESTINATION DICTIONARY]') do |path|
+    @destination_path = path
+  end
+
+  parser.on '-s', '--source [SOURCE DICTIONARY]' do |path|
+    @source_path = path
+  end
+end.parse!
+
+@destination_path ||= ARGV[0] || raise('No destination specified')
+@source_path ||= Dictionary::DEFAULT_SOURCE_PATH
+@source_dictionary = Dictionary.new(@source_path)
+
+def write_to_dictionary(dictionary, data)
+  write_headers = !File.exist?(dictionary)
+
+  CSV.open(dictionary, 'a+', headers: data.keys, write_headers: write_headers) do |csv|
+    csv << data.values
+  end
+end
+
+def run
+  print 'Search: '
+
+  response = STDIN.gets.chomp
+  return run if response.empty?
+
+  query = Regexp.new(response)
+  words = @source_dictionary.search_by(:translation, query)
+
+  return run if words.none?
+
+  grid_data = words.map { |word| word.info.slice(:expression, :kana, :translation) }
+  Display::Grid.new(grid_data).draw(index: true)
+
+  print "\nSelect: "
+
+  response = STDIN.gets.chomp
+  return run if response.empty?
+
+  word = words[response.to_i.pred]
+  write_to_dictionary(@destination_path, word.info)
+  puts "\nSaved to #@destination_path"
+
+  run
+rescue SystemExit, Interrupt
+  puts "\n\nさよなら"
+end
+
+run
